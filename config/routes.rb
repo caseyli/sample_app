@@ -2,6 +2,7 @@ SampleApp::Application.routes.draw do
   
   resources :sessions, :only => [:new, :create, :destroy]
   resources :users
+  resources :microposts, :only => [:create, :destroy]
 
   match '/contact', :to => 'pages#contact'
   match '/about', :to => 'pages#about'
