@@ -1,9 +1,16 @@
 <%= form_for @micropost do |f| %>
 	<%= render 'shared/error_messages', :object => f.object %>
 	<div class="field">
-		<%= f.text_area :content %>
+		<%= f.text_area :content,
+		                :onKeyDown => "micropostCounter()",
+		                :onKeyUp => "micropostCounter()" %>
 	</div>
 	<div class="actions">
 		<%= f.submit "Submit" %>
 	</div>
+	<div class="charcount">
+		<input readonly type="text" id="micropostcharcount" name="micropostcharcount" size="3" maxlength="3" value="140">
+		characters left
+	</div>
+	<br>
 <% end %>

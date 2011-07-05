@@ -244,3 +244,16 @@ form.new_micropost textarea {
 }
 
 tbody tr:nth-child(even) td, tbody tr.even td {background:#f2f2f2;}
+
+
+/* Micropost Count */
+.charcount {
+	color: #bbb;
+	font-size: 12px;
+}
+
+#micropostcharcount {
+	color: #bbb;
+	border: 1px solid #fff;
+	width: 2em;
+}
