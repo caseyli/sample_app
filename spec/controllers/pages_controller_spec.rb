@@ -23,6 +23,13 @@ describe PagesController do
     
       before(:each) do
         @user = test_sign_in(Factory(:user))
+        
+        sample_mp1 = [Factory(:micropost, :user => @user, :content => "hello")]
+        sample_mp2 = [Factory(:micropost, :user => @user, :content => "hello")]
+        @feed_items = [sample_mp1, sample_mp2]
+        80.times do
+           @feed_items << Factory(:micropost, :user => @user, :content => "hello")
+        end
       end
     
       it "should have the right number of posts in the sidebar" do
@@ -44,6 +51,23 @@ describe PagesController do
         get 'home'
         response.should have_selector('span.microposts',
                                       :content => @user.microposts.count.to_s + " microposts")
+      end
+      
+      it "should paginate microposts" do
+        get 'home'
+        response.should have_selector("div.pagination")
+        response.should have_selector("span.disabled", :content => "Previous")
+        response.should have_selector("a", :href => "/?page=2",
+                                           :content => "2")
+        response.should have_selector("a", :href => "/?page=2",
+                                           :content => "Next")
+      end
+      
+      it "should not show delete links beside posts not created by user" do
+        get 'home'
+        # I really don't know how I would test for this?
+        # Perhaps iterate through table?
+        
       end
       
     end
